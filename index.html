@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Xedulab — Kursus IT Online | Web Dev, Data, UI/UX</title>
+  <meta name="description" content="Xedulab adalah platform kursus IT online. Roadmap jelas, project portofolio, mentor, dan sertifikat untuk Web Dev, Data Analyst, dan UI/UX." />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Tailwind (dark mode via class) -->
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = { darkMode: "class" };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Prevent theme flash -->
+  <script>
+    (function () {
+      const saved = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const theme = saved || (prefersDark ? "dark" : "light");
+      if (theme === "dark") document.documentElement.classList.add("dark");
+    })();
+  </script>
+
+  <style>
+    :root{
+      --shadow: 0 14px 40px rgba(0,0,0,.12);
+      --shadow2: 0 20px 55px rgba(0,0,0,.14);
+      --shadowD: 0 20px 70px rgba(0,0,0,.55);
+      --b: rgba(148,163,184,.35);
+      --bd: rgba(255,255,255,.12);
+    }
+    *{ -webkit-tap-highlight-color: transparent; }
+    body{ text-rendering: optimizeLegibility; }
+
+    .card{
+      border-radius: 26px;
+      border: 1px solid var(--b);
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+    }
+    html.dark .card{
+      border-color: var(--bd);
+      background: rgba(15,23,42,.78);
+      box-shadow: var(--shadowD);
+      color: rgb(241,245,249);
+    }
+
+    .glass{
+      border-radius: 28px;
+      border: 1px solid var(--b);
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow2);
+    }
+    html.dark .glass{
+      border-color: var(--bd);
+      background: rgba(2,6,23,.45);
+      box-shadow: var(--shadowD);
+      color: rgb(241,245,249);
+    }
+
+    /* ✅ readability fix */
+    .muted{ color: rgb(51,65,85); }                 /* slate-700 */
+    html.dark .muted{ color: rgb(203,213,225); }    /* slate-300 */
+
+    /* roadmap tighter contrast */
+    .roadmap .muted{ color: rgb(30,41,59); }        /* slate-800 */
+    html.dark .roadmap .muted{ color: rgb(226,232,240); } /* slate-200 */
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.55rem;
+      padding:.92rem 1.25rem;
+      border-radius: 16px;
+      font-weight: 900;
+      transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+      user-select:none; text-decoration:none;
+      box-shadow: var(--shadow);
+      white-space: nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+
+    .btn-primary{
+      color:#fff;
+      background: linear-gradient(90deg, rgb(79,70,229), rgb(124,58,237), rgb(6,182,212));
+    }
+    .btn-ghost{
+      color: rgb(15,23,42);
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(148,163,184,.42);
+    }
+    html.dark .btn-ghost{
+      color: rgb(241,245,249);
+      background: rgba(15,23,42,.92);
+      border-color: rgba(255,255,255,.14);
+      box-shadow: var(--shadowD);
+    }
+    .btn-wa{ color:#fff; background: rgb(16,185,129); }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:.45rem;
+      padding:.35rem .85rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,.35);
+      background: rgba(255,255,255,.70);
+      font-weight: 900; font-size: .8rem;
+      box-shadow: var(--shadow);
+    }
+    html.dark .pill{
+      border-color: rgba(255,255,255,.12);
+      background: rgba(2,6,23,.35);
+      box-shadow: var(--shadowD);
+    }
+
+    .chip{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:.35rem .85rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,.35);
+      background: rgba(255,255,255,.92);
+      font-weight: 900; font-size: .85rem;
+      box-shadow: var(--shadow);
+    }
+    html.dark .chip{
+      border-color: rgba(255,255,255,.12);
+      background: rgba(2,6,23,.35);
+      box-shadow: var(--shadowD);
+      color: rgb(241,245,249);
+    }
+
+    .step{
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,.30);
+      background: rgba(255,255,255,.70);
+      padding: 1rem;
+      display:flex; gap:.9rem; align-items:flex-start;
+    }
+    html.dark .step{
+      border-color: rgba(255,255,255,.12);
+      background: rgba(2,6,23,.38);
+    }
+
+    .stepNum{
+      width:40px; height:40px;
+      border-radius:999px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight: 900; color:#fff;
+      flex: 0 0 auto;
+    }
+
+    .lift{ transition: transform .15s ease; }
+    .lift:hover{ transform: translateY(-2px); }
+
+    .sec{ padding: 5rem 0; }
+    @media (max-width: 640px){ .sec{ padding: 3.5rem 0; } }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+
+  <!-- Promo Bar -->
+  <div class="bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-600 text-white">
+    <div class="mx-auto max-w-6xl px-4 py-2 text-sm font-bold flex items-center justify-between gap-3">
+      <p class="truncate">🎓 Promo: Diskon hingga 40% untuk track Web Dev & Data (kuota terbatas)</p>
+      <a href="#pricing" class="hidden sm:inline underline underline-offset-4">Lihat Paket</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b border-slate-200/70 dark:border-white/10 bg-white/70 dark:bg-slate-950/70 backdrop-blur">
+    <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between gap-3">
+      <a href="#top" class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-cyan-500"></div>
+        <div class="leading-tight">
+          <div class="font-black tracking-tight">Xedulab</div>
+          <div class="text-xs font-bold muted">Kursus IT Online + Portofolio</div>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-extrabold">
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#tracks">Track</a>
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#curriculum">Kurikulum</a>
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#mentors">Mentor</a>
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#testi">Testimoni</a>
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#pricing">Harga</a>
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#faq">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button id="themeBtn"
+          class="inline-flex items-center justify-center rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 px-3 py-2 text-sm font-black"
+          type="button" aria-label="Toggle theme">🌙</button>
+
+        <a id="waNav" href="#" class="btn btn-wa hidden sm:inline-flex">Konsultasi</a>
+        <a href="#pricing" class="btn btn-primary hidden sm:inline-flex">Mulai Belajar</a>
+
+        <button id="menuBtn"
+          class="md:hidden inline-flex items-center justify-center rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 px-3 py-2 text-sm font-black"
+          type="button" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200/70 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 backdrop-blur">
+      <div class="mx-auto max-w-6xl px-4 py-4 grid gap-3 text-sm font-extrabold">
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#tracks">Track</a>
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#curriculum">Kurikulum</a>
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#mentors">Mentor</a>
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#testi">Testimoni</a>
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#pricing">Harga</a>
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#faq">FAQ</a>
+        <a id="waMobile" href="#" class="btn btn-wa w-full">Konsultasi WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute -top-28 left-1/2 h-96 w-[62rem] -translate-x-1/2 rounded-full bg-gradient-to-r from-indigo-500/25 via-violet-500/25 to-cyan-400/25 blur-3xl dark:opacity-60"></div>
+      <div class="absolute -bottom-28 left-12 h-80 w-80 rounded-full bg-indigo-500/10 blur-3xl dark:opacity-60"></div>
+      <div class="absolute -bottom-28 right-12 h-80 w-80 rounded-full bg-cyan-500/10 blur-3xl dark:opacity-60"></div>
+    </div>
+
+    <div class="mx-auto max-w-6xl px-4 pt-14 pb-10">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+
+        <!-- LEFT -->
+        <div>
+          <div class="pill text-slate-700 dark:text-slate-100">
+            🚀 Online Course IT • Roadmap • Proyek • Sertifikat
+          </div>
+
+          <h1 class="mt-5 text-4xl sm:text-5xl font-black tracking-tight leading-[1.05]">
+            Belajar IT dari Nol sampai
+            <span class="bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-500 bg-clip-text text-transparent">Siap Kerja</span>
+            bareng Xedulab
+          </h1>
+
+          <p class="mt-4 text-base sm:text-lg font-semibold text-slate-700 dark:text-slate-300 leading-relaxed">
+            Fokus ke skill yang dipakai industri: Web Development, Data Analyst, dan UI/UX.
+            Materi terstruktur, tugas praktik, dan proyek portofolio biar kamu siap apply kerja/freelance.
+          </p>
+
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href="#tracks" class="btn btn-primary">Lihat Track</a>
+            <a id="waCta" href="#" class="btn btn-ghost">Konsultasi WhatsApp</a>
+            <a href="#curriculum" class="btn btn-ghost">Lihat Kurikulum</a>
+          </div>
+
+          <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="card lift p-4">
+              <div class="text-2xl font-black">50+</div>
+              <div class="text-xs font-extrabold muted">Modul</div>
+            </div>
+            <div class="card lift p-4">
+              <div class="text-2xl font-black">10+</div>
+              <div class="text-xs font-extrabold muted">Project</div>
+            </div>
+            <div class="card lift p-4">
+              <div class="text-2xl font-black">Mentor</div>
+              <div class="text-xs font-extrabold muted">Feedback</div>
+            </div>
+            <div class="card lift p-4">
+              <div class="text-2xl font-black">Sertif</div>
+              <div class="text-xs font-extrabold muted">Course/Track</div>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <div class="text-xs font-black muted">Cocok untuk</div>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="chip">Pemula</span>
+              <span class="chip">Mahasiswa</span>
+              <span class="chip">Fresh Graduate</span>
+              <span class="chip">Career Switcher</span>
+              <span class="chip">Freelancer</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="glass p-7 roadmap">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-sm font-black">Roadmap Belajar</div>
+              <div class="text-xs font-extrabold muted">Pemula → Portofolio → Siap kerja</div>
+            </div>
+            <span class="pill bg-indigo-600 border-0 text-white">LIVE</span>
+          </div>
+
+          <div class="mt-6 space-y-3">
+            <div class="step">
+              <div class="flex gap-3">
+                <div class="stepNum" style="background: rgb(79,70,229);">1</div>
+                <div>
+                  <div class="font-black">Fundamental</div>
+                  <div class="text-sm font-bold muted">Dasar HTML/CSS, Git, dan problem solving.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="flex gap-3">
+                <div class="stepNum" style="background: rgb(124,58,237);">2</div>
+                <div>
+                  <div class="font-black">Skill Track</div>
+                  <div class="text-sm font-bold muted">Pilih Web / Data / UIUX, belajar step-by-step.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="flex gap-3">
+                <div class="stepNum" style="background: rgb(6,182,212);">3</div>
+                <div>
+                  <div class="font-black">Project Portofolio</div>
+                  <div class="text-sm font-bold muted">Build project & publish ke GitHub/Behance.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 grid sm:grid-cols-2 gap-3">
+            <div class="card p-5 lift" style="box-shadow:none;background:rgba(255,255,255,.78);">
+              <div class="text-xs font-black muted">Populer</div>
+              <div class="mt-1 font-black">Web Dev Fundamentals</div>
+              <div class="mt-2 text-xs font-extrabold muted">HTML • CSS • JS</div>
+            </div>
+            <div class="card p-5 lift" style="box-shadow:none;background:rgba(255,255,255,.78);">
+              <div class="text-xs font-black muted">Populer</div>
+              <div class="mt-1 font-black">Data Analyst Starter</div>
+              <div class="mt-2 text-xs font-extrabold muted">Python • SQL</div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#pricing" class="btn btn-primary w-full sm:w-auto">Ambil Paket</a>
+            <a id="waHero" href="#" class="btn btn-wa w-full sm:w-auto">Tanya Admin</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="sec">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-black tracking-tight">Kenapa Xedulab?</h2>
+          <p class="mt-2 font-bold muted leading-relaxed">
+            Belajar bukan cuma nonton. Kamu dapat roadmap, latihan, dan proyek untuk bikin portofolio yang terlihat profesional.
+          </p>
+
+          <div class="mt-6 grid sm:grid-cols-2 gap-4">
+            <div class="card lift p-6">
+              <div class="text-2xl">🧭</div>
+              <div class="mt-2 font-black">Roadmap jelas</div>
+              <p class="mt-1 text-sm font-bold muted">Dari nol sampai siap apply kerja.</p>
+            </div>
+            <div class="card lift p-6">
+              <div class="text-2xl">🧩</div>
+              <div class="mt-2 font-black">Project-based</div>
+              <p class="mt-1 text-sm font-bold muted">Tugas praktik + portofolio.</p>
+            </div>
+            <div class="card lift p-6">
+              <div class="text-2xl">⚡</div>
+              <div class="mt-2 font-black">Belajar fleksibel</div>
+              <p class="mt-1 text-sm font-bold muted">Akses materi kapan saja.</p>
+            </div>
+            <div class="card lift p-6">
+              <div class="text-2xl">💬</div>
+              <div class="mt-2 font-black">Konsultasi</div>
+              <p class="mt-1 text-sm font-bold muted">Dibantu pilih track yang cocok.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass p-7">
+          <div class="text-sm font-black">Output yang kamu dapat</div>
+          <p class="mt-2 font-bold muted">Checklist hasil setelah selesai belajar:</p>
+
+          <ul class="mt-5 space-y-3 text-sm font-bold">
+            <li class="flex gap-3"><span>✅</span><span>Roadmap per track + target mingguan</span></li>
+            <li class="flex gap-3"><span>✅</span><span>Template project (landing page, dashboard, case study)</span></li>
+            <li class="flex gap-3"><span>✅</span><span>Portofolio siap publish (GitHub/Behance)</span></li>
+            <li class="flex gap-3"><span>✅</span><span>Sertifikat course/track</span></li>
+            <li class="flex gap-3"><span>✅</span><span>Support konsultasi via WhatsApp</span></li>
+          </ul>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#tracks" class="btn btn-primary">Pilih Track</a>
+            <a id="waBenefits" href="#" class="btn btn-wa">Chat Admin</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACKS -->
+  <section id="tracks" class="sec">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-black tracking-tight">Track & Course Populer</h2>
+          <p class="mt-2 font-bold muted">Pilih sesuai target: kerja, magang, freelance, atau upgrade skill.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button data-filter="all" class="filterBtn chip" type="button">Semua</button>
+          <button data-filter="web" class="filterBtn chip" type="button">Web Dev</button>
+          <button data-filter="data" class="filterBtn chip" type="button">Data</button>
+          <button data-filter="uiux" class="filterBtn chip" type="button">UI/UX</button>
+        </div>
+      </div>
+
+      <div class="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <article data-course="web" class="courseCard card lift p-6">
+          <div class="flex items-center justify-between">
+            <span class="pill bg-indigo-600 border-0 text-white">Web Dev</span>
+            <span class="text-xs font-black muted">Pemula</span>
+          </div>
+          <h3 class="mt-4 text-lg font-black">Web Development Fundamentals</h3>
+          <p class="mt-2 text-sm font-bold muted">HTML, CSS, JavaScript + bikin landing page responsif.</p>
+          <div class="mt-5 flex items-center justify-between">
+            <div>
+              <div class="text-xs font-black muted">Mulai dari</div>
+              <div class="text-xl font-black">Rp 149K</div>
+            </div>
+            <a href="#pricing" class="btn btn-primary" style="padding:.55rem 1rem;">Detail</a>
+          </div>
+        </article>
+
+        <article data-course="data" class="courseCard card lift p-6">
+          <div class="flex items-center justify-between">
+            <span class="pill bg-cyan-600 border-0 text-white">Data</span>
+            <span class="text-xs font-black muted">Pemula</span>
+          </div>
+          <h3 class="mt-4 text-lg font-black">Data Analyst Starter</h3>
+          <p class="mt-2 text-sm font-bold muted">Python, SQL, EDA, dan visualisasi.</p>
+          <div class="mt-5 flex items-center justify-between">
+            <div>
+              <div class="text-xs font-black muted">Mulai dari</div>
+              <div class="text-xl font-black">Rp 179K</div>
+            </div>
+            <a href="#pricing" class="btn btn-primary" style="padding:.55rem 1rem;">Detail</a>
+          </div>
+        </article>
+
+        <article data-course="uiux" class="courseCard card lift p-6">
+          <div class="flex items-center justify-between">
+            <span class="pill bg-violet-600 border-0 text-white">UI/UX</span>
+            <span class="text-xs font-black muted">Pemula</span>
+          </div>
+          <h3 class="mt-4 text-lg font-black">UI/UX Fundamentals (Figma)</h3>
+          <p class="mt-2 text-sm font-bold muted">Wireframe, prototyping, design system, case study.</p>
+          <div class="mt-5 flex items-center justify-between">
+            <div>
+              <div class="text-xs font-black muted">Mulai dari</div>
+              <div class="text-xl font-black">Rp 129K</div>
+            </div>
+            <a href="#pricing" class="btn btn-primary" style="padding:.55rem 1rem;">Detail</a>
+          </div>
+        </article>
+
+        <article data-course="web" class="courseCard card lift p-6">
+          <div class="flex items-center justify-between">
+            <span class="pill bg-indigo-600 border-0 text-white">Web Dev</span>
+            <span class="text-xs font-black muted">Menengah</span>
+          </div>
+          <h3 class="mt-4 text-lg font-black">Frontend UI Mastery</h3>
+          <p class="mt-2 text-sm font-bold muted">Komponen UI, responsive, animasi, best practices.</p>
+          <div class="mt-5 flex items-center justify-between">
+            <div>
+              <div class="text-xs font-black muted">Mulai dari</div>
+              <div class="text-xl font-black">Rp 229K</div>
+            </div>
+            <a href="#pricing" class="btn btn-primary" style="padding:.55rem 1rem;">Detail</a>
+          </div>
+        </article>
+
+        <article data-course="data" class="courseCard card lift p-6">
+          <div class="flex items-center justify-between">
+            <span class="pill bg-cyan-600 border-0 text-white">Data</span>
+            <span class="text-xs font-black muted">Menengah</span>
+          </div>
+          <h3 class="mt-4 text-lg font-black">Dashboard & Storytelling</h3>
+          <p class="mt-2 text-sm font-bold muted">Visualisasi, insight, dan report yang rapi.</p>
+          <div class="mt-5 flex items-center justify-between">
+            <div>
+              <div class="text-xs font-black muted">Mulai dari</div>
+              <div class="text-xl font-black">Rp 249K</div>
+            </div>
+            <a href="#pricing" class="btn btn-primary" style="padding:.55rem 1rem;">Detail</a>
+          </div>
+        </article>
+
+        <article data-course="uiux" class="courseCard card lift p-6">
+          <div class="flex items-center justify-between">
+            <span class="pill bg-violet-600 border-0 text-white">UI/UX</span>
+            <span class="text-xs font-black muted">Menengah</span>
+          </div>
+          <h3 class="mt-4 text-lg font-black">UX Case Study Portfolio</h3>
+          <p class="mt-2 text-sm font-bold muted">Bikin case study yang siap Behance/LinkedIn.</p>
+          <div class="mt-5 flex items-center justify-between">
+            <div>
+              <div class="text-xs font-black muted">Mulai dari</div>
+              <div class="text-xl font-black">Rp 199K</div>
+            </div>
+            <a href="#pricing" class="btn btn-primary" style="padding:.55rem 1rem;">Detail</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section id="curriculum" class="sec">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-black tracking-tight">Preview Kurikulum</h2>
+          
+          <div class="mt-6 space-y-4">
+            <div class="card lift p-6">
+              <div class="font-black">Week 1 — Fundamental</div>
+              <div class="mt-2 text-sm font-bold muted">Setup tools, konsep dasar, dan latihan.</div>
+            </div>
+            <div class="card lift p-6">
+              <div class="font-black">Week 2 — Skill Track</div>
+              <div class="mt-2 text-sm font-bold muted">Materi inti sesuai jalur (Web/Data/UIUX).</div>
+            </div>
+            <div class="card lift p-6">
+              <div class="font-black">Week 3 — Project</div>
+              <div class="mt-2 text-sm font-bold muted">Build project + checklist kualitas.</div>
+            </div>
+            <div class="card lift p-6">
+              <div class="font-black">Week 4 — Publish</div>
+              <div class="mt-2 text-sm font-bold muted">Deploy, write-up, dan siap share.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass p-7 roadmap">
+          <div class="text-sm font-black">Output yang dinilai</div>
+          <p class="mt-2 font-bold muted">Checklist agar portofolio terlihat profesional:</p>
+
+          <div class="mt-6 grid gap-3">
+            <div class="card p-5 lift" style="box-shadow:none;">
+              <div class="text-xs font-black muted">Kerapian UI</div>
+              <div class="mt-1 font-black">Layout, spacing, responsif</div>
+            </div>
+            <div class="card p-5 lift" style="box-shadow:none;">
+              <div class="text-xs font-black muted">Kualitas kode</div>
+              <div class="mt-1 font-black">Struktur file, naming</div>
+            </div>
+            <div class="card p-5 lift" style="box-shadow:none;">
+              <div class="text-xs font-black muted">Publish</div>
+              <div class="mt-1 font-black">Deploy + README + screenshot</div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#pricing" class="btn btn-primary">Ambil Paket</a>
+            <a id="waCurr" href="#" class="btn btn-wa">Tanya Kurikulum</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENTORS -->
+  <section id="mentors" class="sec">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="text-2xl sm:text-3xl font-black tracking-tight">Mentor & Reviewer</h2>
+    
+      <div class="mt-8 grid md:grid-cols-3 gap-5">
+        <div class="card lift p-6">
+          <div class="h-12 w-12 rounded-2xl bg-indigo-600/20 dark:bg-indigo-400/10"></div>
+          <div class="mt-4 font-black">Mentor Web Dev</div>
+          <div class="text-sm font-bold muted">Frontend • UI • Best practice</div>
+        </div>
+        <div class="card lift p-6">
+          <div class="h-12 w-12 rounded-2xl bg-cyan-600/20 dark:bg-cyan-400/10"></div>
+          <div class="mt-4 font-black">Mentor Data</div>
+          <div class="text-sm font-bold muted">Python • SQL • Analytics</div>
+        </div>
+        <div class="card lift p-6">
+          <div class="h-12 w-12 rounded-2xl bg-violet-600/20 dark:bg-violet-400/10"></div>
+          <div class="mt-4 font-black">Mentor UI/UX</div>
+          <div class="text-sm font-bold muted">Figma • UX • Case study</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testi" class="sec">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="text-2xl sm:text-3xl font-black tracking-tight">Testimoni</h2>
+    
+      <div class="mt-8 grid md:grid-cols-3 gap-5">
+        <div class="card lift p-6">
+          <div class="text-lg font-black">⭐️⭐️⭐️⭐️⭐️</div>
+          <p class="mt-3 text-sm font-bold muted">“Materinya runtut, akhirnya bisa deploy landing page dan punya portofolio.”</p>
+          <div class="mt-4 font-black">Raka</div>
+          <div class="text-xs font-black muted">Track Web Dev</div>
+        </div>
+        <div class="card lift p-6">
+          <div class="text-lg font-black">⭐️⭐️⭐️⭐️⭐️</div>
+          <p class="mt-3 text-sm font-bold muted">“Kelas Data enak banget, ada dataset latihan dan project jadi.”</p>
+          <div class="mt-4 font-black">Sinta</div>
+          <div class="text-xs font-black muted">Track Data</div>
+        </div>
+        <div class="card lift p-6">
+          <div class="text-lg font-black">⭐️⭐️⭐️⭐️⭐️</div>
+          <p class="mt-3 text-sm font-bold muted">“UI/UX jadi lebih kebentuk, case study aku rapi dan siap Behance.”</p>
+          <div class="mt-4 font-black">Dimas</div>
+          <div class="text-xs font-black muted">Track UI/UX</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="sec">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="text-2xl sm:text-3xl font-black tracking-tight">Paket Belajar</h2>
+      
+      <div class="mt-8 grid lg:grid-cols-3 gap-5">
+        <div class="card lift p-7">
+          <div class="pill">Starter</div>
+          <h3 class="mt-4 text-xl font-black">Mulai dari Nol</h3>
+          <p class="mt-2 text-sm font-bold muted">Akses 1 course pilihan.</p>
+          <div class="mt-5 text-4xl font-black">Rp 149K</div>
+          <ul class="mt-5 space-y-2 text-sm font-bold muted">
+            <li>• 1 course</li>
+            <li>• Akses 3 bulan</li>
+            <li>• Sertifikat course</li>
+          </ul>
+          <a href="#" class="btn btn-ghost mt-6 w-full">Pilih Starter</a>
+        </div>
+
+        <div class="glass p-7 relative overflow-hidden roadmap">
+          <div class="absolute top-5 right-5 text-xs font-black px-3 py-1 rounded-xl bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-500 text-white">Best Value</div>
+          <div class="pill bg-indigo-600 border-0 text-white">Pro</div>
+          <h3 class="mt-4 text-xl font-black">Track + Project</h3>
+          <p class="mt-2 text-sm font-bold muted">Untuk yang serius bangun portofolio.</p>
+          <div class="mt-5 text-4xl font-black">Rp 299K</div>
+          <ul class="mt-5 space-y-2 text-sm font-bold muted">
+            <li>• Akses track (periode)</li>
+            <li>• Template project</li>
+            <li>• Sertifikat track</li>
+            <li>• Grup diskusi</li>
+          </ul>
+          <a href="#" class="btn btn-primary mt-6 w-full">Pilih Pro</a>
+        </div>
+
+        <div class="card lift p-7">
+          <div class="pill bg-emerald-600 border-0 text-white">Bootcamp</div>
+          <h3 class="mt-4 text-xl font-black">Mentoring & Review</h3>
+          <p class="mt-2 text-sm font-bold muted">Bimbingan + feedback portofolio.</p>
+          <div class="mt-5 text-4xl font-black">Rp 799K</div>
+          <ul class="mt-5 space-y-2 text-sm font-bold muted">
+            <li>• Mentoring terjadwal</li>
+            <li>• Review tugas</li>
+            <li>• Sertifikat</li>
+            <li>• Prioritas support</li>
+          </ul>
+          <a href="#" class="btn btn-ghost mt-6 w-full">Pilih Bootcamp</a>
+        </div>
+      </div>
+
+      <div class="mt-10 glass p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="text-lg font-black">Masih bingung pilih track?</div>
+          <div class="mt-1 text-sm font-bold muted">Chat admin, nanti dibantu rekomendasi sesuai tujuan kamu.</div>
+        </div>
+        <a id="waPricing" href="#" class="btn btn-wa">Konsultasi WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="sec">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="text-2xl sm:text-3xl font-black tracking-tight">FAQ</h2>
+      <p class="mt-2 font-bold muted">Pertanyaan yang sering ditanyakan.</p>
+
+      <div class="mt-8 grid lg:grid-cols-2 gap-5">
+        <div class="faqItem card p-6 cursor-pointer lift">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="font-black">Cocok untuk pemula total?</div>
+              <div class="faqBody hidden mt-2 text-sm font-bold muted">
+                Cocok. Mulai dari fundamental, lalu lanjut ke track sesuai target kamu.
+              </div>
+            </div>
+            <div class="faqIcon text-xl font-black">+</div>
+          </div>
+        </div>
+
+        <div class="faqItem card p-6 cursor-pointer lift">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="font-black">Sertifikat dapat kapan?</div>
+              <div class="faqBody hidden mt-2 text-sm font-bold muted">
+                Setelah menyelesaikan materi dan tugas/kuis sesuai ketentuan course/track.
+              </div>
+            </div>
+            <div class="faqIcon text-xl font-black">+</div>
+          </div>
+        </div>
+
+        <div class="faqItem card p-6 cursor-pointer lift">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="font-black">Bisa belajar lewat HP?</div>
+              <div class="faqBody hidden mt-2 text-sm font-bold muted">
+                Bisa untuk materi. Untuk praktik coding dan project, lebih nyaman pakai laptop.
+              </div>
+            </div>
+            <div class="faqIcon text-xl font-black">+</div>
+          </div>
+        </div>
+
+        <div class="faqItem card p-6 cursor-pointer lift">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="font-black">Bedanya Pro vs Bootcamp?</div>
+              <div class="faqBody hidden mt-2 text-sm font-bold muted">
+                Pro fokus akses + template project. Bootcamp ada mentoring & review portofolio terjadwal.
+              </div>
+            </div>
+            <div class="faqIcon text-xl font-black">+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="pb-16">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="glass p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+        <div>
+          <div class="text-2xl font-black">Siap upgrade skill IT?</div>
+          <div class="mt-2 font-bold muted">
+            Mulai dari track yang paling relevan. Bangun portofolio, dan naik level step-by-step.
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="#tracks" class="btn btn-primary">Pilih Track</a>
+          <a id="waFinal" href="#" class="btn btn-wa">Chat Admin</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-white/10">
+    <div class="mx-auto max-w-6xl px-4 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div>
+        <div class="font-black text-lg">Xedulab</div>
+        <div class="text-sm font-bold muted">Kursus IT Online • Web Dev • Data • UI/UX</div>
+        <div class="mt-2 text-xs font-bold text-slate-500 dark:text-slate-400">© <span id="year"></span> Xedulab. All rights reserved.</div>
+      </div>
+
+      <div class="flex flex-wrap gap-4 text-sm font-black">
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#tracks">Track</a>
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#pricing">Harga</a>
+        <a class="hover:text-indigo-600 dark:hover:text-cyan-300" href="#faq">FAQ</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WA -->
+  <a id="waFloat" href="#"
+     class="fixed bottom-5 right-5 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-3 text-sm font-black text-white hover:opacity-95 transition"
+     style="box-shadow: var(--shadow);">
+    💬 WhatsApp
+  </a>
+
+  <script>
+    // year
+    const y = document.getElementById("year");
+    if (y) y.textContent = new Date().getFullYear();
+
+    // WhatsApp links
+    const WA_NUMBER = "6282113614887"; // ganti
+    const WA_TEXT = encodeURIComponent("Halo Xedulab, saya mau tanya rekomendasi track yang cocok buat saya.");
+    const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${WA_TEXT}`;
+    ["waNav","waMobile","waCta","waHero","waBenefits","waCurr","waPricing","waFinal","waFloat"].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.href = WA_LINK;
+    });
+
+    // theme toggle
+    const themeBtn = document.getElementById("themeBtn");
+    const setIcon = () => themeBtn && (themeBtn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙");
+    setIcon();
+    themeBtn && themeBtn.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      setIcon();
+    });
+
+    // mobile menu
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+        menuBtn.textContent = mobileMenu.classList.contains("hidden") ? "☰" : "✕";
+      });
+      mobileMenu.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+          menuBtn.textContent = "☰";
+        });
+      });
+    }
+
+    // filter
+    const filterBtns = document.querySelectorAll(".filterBtn[data-filter]");
+    const cards = document.querySelectorAll(".courseCard[data-course]");
+    const norm = s => (s||"").trim().toLowerCase();
+
+    const setActive = (btn) => {
+      filterBtns.forEach(b => b.classList.remove("ring-2","ring-indigo-500","dark:ring-cyan-300"));
+      btn.classList.add("ring-2","ring-indigo-500","dark:ring-cyan-300");
+    };
+
+    const btnAll = Array.from(filterBtns).find(b => norm(b.dataset.filter) === "all");
+    if (btnAll) setActive(btnAll);
+
+    filterBtns.forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const f = norm(btn.dataset.filter);
+        setActive(btn);
+        cards.forEach(c=>{
+          const show = (f==="all") || (norm(c.dataset.course)===f);
+          c.classList.toggle("hidden", !show);
+        });
+      });
+    });
+
+    // FAQ accordion
+    document.querySelectorAll(".faqItem").forEach(item=>{
+      item.addEventListener("click", ()=>{
+        const body = item.querySelector(".faqBody");
+        const icon = item.querySelector(".faqIcon");
+        const isOpen = body && !body.classList.contains("hidden");
+
+        document.querySelectorAll(".faqItem").forEach(x=>{
+          const b = x.querySelector(".faqBody");
+          const i = x.querySelector(".faqIcon");
+          if (b) b.classList.add("hidden");
+          if (i) i.textContent = "+";
+        });
+
+        if (body && icon && !isOpen){
+          body.classList.remove("hidden");
+          icon.textContent = "–";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
