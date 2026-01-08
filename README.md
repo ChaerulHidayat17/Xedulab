@@ -47,6 +47,6 @@ Proyek ini dibuat untuk:
 ```text
 xedulab-landing-page/
 │
-├── index.html        # File utama (HTML + CSS + JS)
+├── index.html        # File utama (HTML + CSS )
 ├── README.md         # Dokumentasi project
-└── assets/           # (Opsional) gambar / ikon
+└── app.js            # File JS
